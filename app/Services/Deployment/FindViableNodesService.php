@@ -91,7 +91,6 @@ class FindViableNodesService
         $query = Node::query()->select('nodes.*')
             ->selectRaw('IFNULL(SUM(servers.memory), 0) as sum_memory')
             ->selectRaw('IFNULL(SUM(servers.disk), 0) as sum_disk')
-            ->selectRaw('SUM(servers.memory) / (nodes.memory * (1 + (nodes.memory_overallocate / 100))) * 100 AS pct')
             ->leftJoin('servers', 'servers.node_id', '=', 'nodes.id')
             ->where('nodes.public', 1);
 
